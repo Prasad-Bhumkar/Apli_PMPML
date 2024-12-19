@@ -8,7 +8,6 @@ import {
   TextInput,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import MapView, { Marker, Polyline } from 'react-native-maps';
 import { mockBusRoutes, mockBusStops } from '../data/mockData';
 
 const HomeScreen = ({ navigation }) => {

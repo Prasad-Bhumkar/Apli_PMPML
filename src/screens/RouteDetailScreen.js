@@ -6,19 +6,11 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import MapView, { Marker, Polyline } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const RouteDetailScreen = ({ route, navigation }) => {
   const { route: busRoute } = route.params;
   const [showLiveUpdates, setShowLiveUpdates] = useState(true);
-
-  const initialRegion = {
-    latitude: busRoute.coordinates[0][0],
-    longitude: busRoute.coordinates[0][1],
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  };
 
   const mockLiveUpdates = [
     {
@@ -46,47 +38,6 @@ const RouteDetailScreen = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        initialRegion={initialRegion}
-      >
-        <Polyline
-          coordinates={busRoute.coordinates.map(coord => ({
-            latitude: coord[0],
-            longitude: coord[1]
-          }))}
-          strokeColor="#1a73e8"
-          strokeWidth={3}
-        />
-        <Marker
-          coordinate={{
-            latitude: busRoute.coordinates[0][0],
-            longitude: busRoute.coordinates[0][1]
-          }}
-          title={busRoute.startPoint}
-          description="Start Point"
-        />
-        <Marker
-          coordinate={{
-            latitude: busRoute.coordinates[busRoute.coordinates.length - 1][0],
-            longitude: busRoute.coordinates[busRoute.coordinates.length - 1][1]
-          }}
-          title={busRoute.endPoint}
-          description="End Point"
-        />
-        {/* Simulate a bus on the route */}
-        <Marker
-          coordinate={{
-            latitude: busRoute.coordinates[Math.floor(busRoute.coordinates.length / 2)][0],
-            longitude: busRoute.coordinates[Math.floor(busRoute.coordinates.length / 2)][1]
-          }}
-          title={`Bus ${busRoute.number}`}
-          description="On Route"
-        >
-          <Icon name="directions-bus" size={24} color="#1a73e8" />
-        </Marker>
-      </MapView>
-
       <View style={styles.detailsContainer}>
         <View style={styles.header}>
           <View>
@@ -145,16 +96,11 @@ const RouteDetailScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  map: {
-    height: '50%',
+    backgroundColor: '#f5f5f5',
   },
   detailsContainer: {
     flex: 1,
     backgroundColor: '#fff',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    marginTop: -20,
     padding: 16,
   },
   header: {

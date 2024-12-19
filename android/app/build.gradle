@@ -16,6 +16,9 @@ react {
     codegenDir = file("../node_modules/@react-native/codegen")
     //   The cli.js file which is the React Native CLI entrypoint. Default is ../node_modules/react-native/cli.js
     cliFile = file("../node_modules/react-native/cli.js")
+    entryFile = file("${project.rootDir}/../index.js")
+    hermesCommand = "../node_modules/react-native/sdks/hermesc/linux64-bin/hermesc"
+    extraPackagerArgs = ["--sourcemap-output", "false"]
 
     /* Variants */
     //   The list of variants to that are debuggable. For those we're going to
@@ -77,7 +80,7 @@ android {
     namespace "com.pmpmltracker"
     defaultConfig {
         applicationId "com.pmpmltracker"
-        minSdkVersion rootProject.ext.minSdkVersion
+        minSdkVersion 24
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
@@ -113,9 +116,8 @@ android {
 }
 
 dependencies {
-    // The version of react-native is set by the React Native Gradle Plugin
-    implementation("com.facebook.react:react-android")
-    implementation("com.facebook.react:hermes-android")
+    implementation("com.facebook.react:react-android:${rootProject.ext.reactNativeVersion}")
+    implementation("com.facebook.react:hermes-android:${rootProject.ext.reactNativeVersion}")
 
     // Maps dependencies
     implementation 'com.google.android.gms:play-services-base:18.2.0'
